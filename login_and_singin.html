@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Studio - Login</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    background:
+    radial-gradient(circle at top left,#7B2CFF 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#FF00AA 0%,transparent 35%),
+    #09091A;
+}
+
+/* Background Logo */
+body::before{
+    content:'';
+    position:absolute;
+    width:800px;
+    height:800px;
+    background:url('mi-studio-logo.png') center/contain no-repeat;
+    opacity:0.05;
+    filter:blur(6px);
+    animation:rotateLogo 30s linear infinite;
+}
+
+@keyframes rotateLogo{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+}
+
+/* Card */
+
+.card{
+    width:430px;
+    padding:35px;
+    border-radius:30px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,0.12);
+    box-shadow:
+    0 0 25px rgba(123,44,255,0.4),
+    0 0 50px rgba(255,0,170,0.15);
+    position:relative;
+    z-index:10;
+}
+
+/* Logo */
+
+.logo-box{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.logo-box img{
+    width:110px;
+    animation:float 4s ease-in-out infinite;
+    filter:
+    drop-shadow(0 0 15px #FF00AA)
+    drop-shadow(0 0 25px #7B2CFF);
+}
+
+@keyframes float{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-8px);
+    }
+}
+
+.logo-box h1{
+    color:white;
+    font-size:34px;
+    margin-top:10px;
+}
+
+.logo-box p{
+    color:#cfcfff;
+    letter-spacing:2px;
+    font-size:13px;
+}
+
+/* Toggle */
+
+.toggle{
+    position:relative;
+    display:flex;
+    background:rgba(255,255,255,0.08);
+    border-radius:50px;
+    margin-bottom:25px;
+}
+
+.slider{
+    position:absolute;
+    width:50%;
+    height:100%;
+    border-radius:50px;
+    background:linear-gradient(
+    90deg,
+    #7B2CFF,
+    #FF00AA
+    );
+    transition:.4s;
+}
+
+.toggle button{
+    flex:1;
+    padding:14px;
+    border:none;
+    background:none;
+    color:white;
+    cursor:pointer;
+    font-size:15px;
+    z-index:2;
+}
+
+/* Forms */
+
+.form{
+    display:none;
+    animation:fade .5s ease;
+}
+
+.form.active{
+    display:block;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.form h2{
+    color:white;
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.input-box{
+    margin-bottom:15px;
+}
+
+.input-box input{
+    width:100%;
+    padding:14px;
+    border:none;
+    outline:none;
+    border-radius:14px;
+    color:white;
+    background:rgba(255,255,255,0.1);
+    transition:.3s;
+}
+
+.input-box input::placeholder{
+    color:#d8d8ff;
+}
+
+.input-box input:focus{
+    box-shadow:
+    0 0 10px #7B2CFF,
+    0 0 20px rgba(255,0,170,.3);
+}
+
+.btn{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:14px;
+    background:linear-gradient(
+    90deg,
+    #7B2CFF,
+    #FF00AA
+    );
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+    box-shadow:
+    0 0 15px #7B2CFF,
+    0 0 30px #FF00AA;
+}
+
+.link{
+    text-align:center;
+    margin-top:15px;
+    color:#ddd;
+    font-size:14px;
+}
+
+.link a{
+    color:#fff;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.link a:hover{
+    color:#FF00AA;
+}
+
+@media(max-width:500px){
+
+.card{
+    width:92%;
+    padding:25px;
+}
+
+.logo-box img{
+    width:90px;
+}
+
+.logo-box h1{
+    font-size:28px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="card">
+
+<div class="logo-box">
+<a href="home.html" style="text-decoration: none;">
+<img src="mi-studio-logo.png" alt="Mi Studio">
+<h1>Mi Studio</h1>
+</a>
+<p>CODE • CREATE • INNOVATE</p>
+</div>
+
+<div class="toggle">
+<div class="slider" id="slider"></div>
+
+<button onclick="showLogin()">
+Login
+</button>
+
+<button onclick="showSignup()">
+Sign Up
+</button>
+</div>
+
+<!-- Login -->
+
+<form class="form active" id="loginForm" action="save_data.php" method="post">
+
+<h2>Welcome Back</h2>
+<input type="hidden" name="form_type" value="login">
+
+<div class="input-box">
+<input type="email" name="email" placeholder="Email Address" required>
+</div>
+
+<div class="input-box">
+<input type="password" name="password" placeholder="Password" required>
+</div>
+
+<button class="btn" type="submit">
+Login
+</button>
+
+<div class="link">
+Don't have an account?
+<a href="#" onclick="showSignup();return false;">
+Sign Up
+</a>
+</div>
+
+</form>
+
+<!-- Signup -->
+
+<form class="form" id="signupForm" action="save_data.php" method="post">
+
+<h2>Create Account</h2>
+<input type="hidden" name="form_type" value="signup">
+
+<div class="input-box">
+<input type="text" name="full_name" placeholder="Full Name" required>
+</div>
+
+<div class="input-box">
+<input type="email" name="email" placeholder="Email Address" required>
+</div>
+
+<div class="input-box">
+<input type="password" name="password" placeholder="Password" required>
+</div>
+
+<button class="btn" type="submit">
+Create Account
+</button>
+
+<div class="link">
+Already have an account?
+<a href="#" onclick="showLogin();return false;">
+Login
+</a>
+</div>
+
+</form>
+
+</div>
+
+<script>
+
+const loginForm =
+document.getElementById("loginForm");
+
+const signupForm =
+document.getElementById("signupForm");
+
+const slider =
+document.getElementById("slider");
+
+function showSignup(){
+
+signupForm.classList.add("active");
+loginForm.classList.remove("active");
+
+slider.style.transform =
+"translateX(100%)";
+
+}
+
+function showLogin(){
+
+loginForm.classList.add("active");
+signupForm.classList.remove("active");
+
+slider.style.transform =
+"translateX(0)";
+
+}
+
+</script>
+
+</body>
+</html>
