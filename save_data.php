@@ -29,7 +29,18 @@ function saveToJsonFile($entry, $filePath) {
     }
 
     $existing[] = $entry;
-    file_put_contents($filePath, json_encode($existing, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+    file_put_contents($filePath, json_encode($existing, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+}
+
+function redactSensitiveFields($payload) {
+    $safePayload = $payload;
+    foreach (['password', 'confirm_password'] as $field) {
+        if (isset($safePayload[$field])) {
+            $safePayload[$field] = '[hidden]';
+        }
+    }
+
+    return $safePayload;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -39,10 +50,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $payload[$key] = sanitizeValue($value);
     }
 
+    $formType = $payload['form_type'] ?? 'unknown';
+    $safePayload = redactSensitiveFields($payload);
+
     $entry = [
         'timestamp' => date('Y-m-d H:i:s'),
-        'source' => $payload['form_type'] ?? 'unknown',
-        'data' => $payload
+        'source' => $formType,
+        'data' => $safePayload
     ];
 
     saveToJsonFile($entry, $submissionFile);
@@ -99,16 +113,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             );
 
             $stmt = $conn->prepare("INSERT INTO `$submissionTable` (form_type, payload) VALUES (?, ?)");
-            $stmt->bind_param('ss', $entry['source'], json_encode($payload, JSON_UNESCAPED_SLASHES));
+            $safePayloadJson = json_encode($safePayload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+            $stmt->bind_param('ss', $entry['source'], $safePayloadJson);
             $stmt->execute();
             $stmt->close();
 
-            $formType = $payload['form_type'] ?? 'unknown';
             $email = $payload['email'] ?? '';
             $password = $payload['password'] ?? '';
 
             if ($formType === 'signup') {
                 $fullName = $payload['full_name'] ?? '';
+                if ($fullName === '' || !filter_var($email, FILTER_VALIDATE_EMAIL) || $password === '') {
+                    $authStatus = 'signup-failed';
+                    $authMessage = 'Please complete all signup fields';
+                    break;
+                }
+
                 $checkStmt = $conn->prepare('SELECT id FROM users WHERE email = ?');
                 $checkStmt->bind_param('s', $email);
                 $checkStmt->execute();
@@ -129,6 +149,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $checkStmt->close();
             } elseif ($formType === 'login') {
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL) || $password === '') {
+                    $authStatus = 'login-failed';
+                    $authMessage = 'Please enter a valid email and password';
+                    break;
+                }
+
                 $userStmt = $conn->prepare('SELECT password FROM users WHERE email = ?');
                 $userStmt->bind_param('s', $email);
                 $userStmt->execute();
@@ -161,16 +187,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $conn->close();
     }
 
-    $redirectPage = 'home.html';
+    $redirectPage = in_array($formType, ['login', 'signup'], true) ? 'login_and_singin.html' : 'home.html';
     $redirectQuery = ['saved' => '1', 'auth' => $authStatus];
 
     if ($dbError) {
         error_log('Database save failed: ' . $dbError);
-        $redirectQuery['error'] = rawurlencode($dbError);
+        $redirectQuery['error'] = '1';
+        if ($formType !== 'contact') {
+            $authMessage = 'Database connection failed. Please try again later.';
+        }
     }
 
     if ($authMessage) {
-        $redirectQuery['message'] = rawurlencode($authMessage);
+        $redirectQuery['message'] = $authMessage;
     }
 
     header("Location: $redirectPage?" . http_build_query($redirectQuery));
