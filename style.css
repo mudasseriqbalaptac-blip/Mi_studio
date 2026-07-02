@@ -335,6 +335,23 @@ nav ul li a.nav-login-btn:hover {
     font-size: 1rem;
 }
 
+.hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.hero-badges span {
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #e6dcff;
+    font-size: 0.84rem;
+    backdrop-filter: blur(10px);
+}
+
 .success-box {
     margin-top: 16px;
     padding: 12px 14px;
