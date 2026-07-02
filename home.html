@@ -112,6 +112,12 @@
                 <input type="email" id="contactEmail" name="email" placeholder="Email address" required autocomplete="email">
                 <input type="text" id="contactSubject" name="subject" placeholder="Post title, bug, idea, or collaboration request">
                 <textarea id="contactMessage" name="message" placeholder="Share a code question, build log, launch update, or idea..." required maxlength="500"></textarea>
+                <div class="composer-tools" aria-label="Post shortcuts">
+                    <button type="button" data-fill-post="bug">Bug</button>
+                    <button type="button" data-fill-post="snippet">Snippet</button>
+                    <button type="button" data-fill-post="launch">Launch</button>
+                    <button type="button" data-fill-post="collab">Collab</button>
+                </div>
                 <div class="composer-actions">
                     <span class="char-counter" id="charCounter">0 / 500</span>
                     <button type="submit" class="btn" id="contactSubmitBtn">Publish</button>
