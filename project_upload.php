@@ -97,6 +97,11 @@ $success = isset($_GET['success']) && $_GET['success'] === '1';
         <section class="hero-card">
             <div class="hero-copy">
                 <p class="eyebrow">Project Showcase</p>
+                <div class="hero-badges">
+                    <span>✨ Modern showcase</span>
+                    <span>⚡ Lightning fast upload</span>
+                    <span>🎨 Beautiful presentation</span>
+                </div>
                 <h1>Show your work to the world.</h1>
                 <p>Upload a project, add a short description, and let people discover what you built.</p>
                 <?php if ($success): ?>
@@ -105,6 +110,10 @@ $success = isset($_GET['success']) && $_GET['success'] === '1';
             </div>
             <div class="hero-panel">
                 <form class="project-form" action="project_upload.php" method="post" enctype="multipart/form-data">
+                    <div class="form-heading">
+                        <h3>Upload your project</h3>
+                        <p>Share screenshots, details, and a link in one polished submission.</p>
+                    </div>
                     <label>
                         Project title
                         <input type="text" name="project_title" placeholder="My awesome project" required>
@@ -121,10 +130,16 @@ $success = isset($_GET['success']) && $_GET['success'] === '1';
                         Project link
                         <input type="url" name="project_link" placeholder="https://example.com">
                     </label>
-                    <label>
-                        Project image
-                        <input type="file" name="project_image" accept="image/*">
-                    </label>
+                    <div class="upload-field">
+                        <label class="file-label" for="project_image">Project image</label>
+                        <div class="file-input-shell">
+                            <input id="project_image" type="file" name="project_image" accept="image/*" onchange="previewSelectedImage(this)">
+                            <span class="file-hint">PNG, JPG, WEBP · up to 2MB</span>
+                        </div>
+                        <div id="imagePreview" class="image-preview">
+                            <span>Preview will appear here</span>
+                        </div>
+                    </div>
                     <button type="submit">Upload project</button>
                 </form>
             </div>
