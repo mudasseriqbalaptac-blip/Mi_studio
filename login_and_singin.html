@@ -223,6 +223,30 @@ body::before{
     color:#FF00AA;
 }
 
+.status-message{
+    display:none;
+    margin-bottom:18px;
+    padding:12px 14px;
+    border-radius:14px;
+    color:white;
+    font-size:14px;
+    line-height:1.4;
+    background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.14);
+}
+
+.status-message.success{
+    display:block;
+    background:rgba(18,104,87,0.52);
+    border-color:rgba(80,220,160,0.42);
+}
+
+.status-message.error{
+    display:block;
+    background:rgba(171,44,79,0.52);
+    border-color:rgba(255,115,150,0.4);
+}
+
 @media(max-width:500px){
 
 .card{
@@ -265,6 +289,8 @@ Login
 Sign Up
 </button>
 </div>
+
+<div class="status-message" id="statusMessage" role="status" aria-live="polite"></div>
 
 <!-- Login -->
 
@@ -357,6 +383,23 @@ signupForm.classList.remove("active");
 slider.style.transform =
 "translateX(0)";
 
+}
+
+const params = new URLSearchParams(window.location.search);
+const message = params.get("message");
+const auth = params.get("auth");
+const statusMessage = document.getElementById("statusMessage");
+
+if (message && statusMessage) {
+    const isSuccess = auth === "login-success" || auth === "signup-success";
+    statusMessage.textContent = message;
+    statusMessage.classList.add(isSuccess ? "success" : "error");
+
+    if (auth && auth.startsWith("signup")) {
+        showSignup();
+    }
+
+    window.history.replaceState({}, document.title, window.location.pathname);
 }
 
 </script>
