@@ -610,7 +610,38 @@ nav ul li a.nav-login-btn:hover {
     color: var(--text-muted);
 }
 
+.all-projects-hero {
+    grid-template-columns: 1.2fr 0.8fr;
+    align-items: center;
+}
+
+.hero-summary {
+    display: grid;
+    gap: 12px;
+}
+
+.summary-stat {
+    padding: 14px 16px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.summary-stat strong {
+    display: block;
+    font-size: 1.35rem;
+    color: white;
+}
+
+.summary-stat span {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
 @media (max-width: 900px) {
+    .all-projects-hero {
+        grid-template-columns: 1fr;
+    }
     .hero-card {
         grid-template-columns: 1fr;
     }
