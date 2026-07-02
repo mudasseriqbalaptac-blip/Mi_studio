@@ -1,4 +1,6 @@
 <?php
+header('Content-Type: text/html; charset=UTF-8');
+
 $projectsFile = __DIR__ . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'projects.json';
 $uploadsDir = __DIR__ . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'projects';
 
@@ -29,7 +31,7 @@ function loadProjects($filePath) {
 }
 
 function saveProjects($filePath, $projects) {
-    file_put_contents($filePath, json_encode(array_values($projects), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+    file_put_contents($filePath, json_encode(array_values($projects), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -42,21 +44,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $uploadedBy = 'Anonymous';
     }
 
+    if ($title === '' || $description === '') {
+        header('Location: project_upload.php?error=' . rawurlencode('Please add a project title and description.'));
+        exit;
+    }
+
+    if ($link !== '' && !filter_var($link, FILTER_VALIDATE_URL)) {
+        header('Location: project_upload.php?error=' . rawurlencode('Please enter a valid project link.'));
+        exit;
+    }
+
     $imagePath = '';
     if (isset($_FILES['project_image']) && $_FILES['project_image']['error'] === UPLOAD_ERR_OK) {
-        $allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+        $allowedTypes = [
+            'image/jpeg' => 'jpg',
+            'image/png' => 'png',
+            'image/webp' => 'webp',
+            'image/gif' => 'gif'
+        ];
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $mimeType = finfo_file($finfo, $_FILES['project_image']['tmp_name']);
         finfo_close($finfo);
 
-        if (in_array($mimeType, $allowedTypes, true) && $_FILES['project_image']['size'] <= 2 * 1024 * 1024) {
-            $extension = pathinfo($_FILES['project_image']['name'], PATHINFO_EXTENSION);
-            $fileName = 'project_' . uniqid() . '.' . strtolower($extension);
+        if (isset($allowedTypes[$mimeType]) && $_FILES['project_image']['size'] <= 2 * 1024 * 1024) {
+            $extension = $allowedTypes[$mimeType];
+            $fileName = 'project_' . bin2hex(random_bytes(8)) . '.' . $extension;
             $targetPath = $uploadsDir . DIRECTORY_SEPARATOR . $fileName;
             if (move_uploaded_file($_FILES['project_image']['tmp_name'], $targetPath)) {
                 $imagePath = 'uploads/projects/' . $fileName;
             }
+        } else {
+            header('Location: project_upload.php?error=' . rawurlencode('Project image must be JPG, PNG, WEBP, or GIF and under 2MB.'));
+            exit;
         }
+    } elseif (isset($_FILES['project_image']) && $_FILES['project_image']['error'] !== UPLOAD_ERR_NO_FILE) {
+        header('Location: project_upload.php?error=' . rawurlencode('Image upload failed. Please try another file.'));
+        exit;
     }
 
     $projects = loadProjects($projectsFile);
@@ -79,6 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $projects = array_reverse(loadProjects($projectsFile));
 $success = isset($_GET['success']) && $_GET['success'] === '1';
+$error = isset($_GET['error']) ? trim((string) $_GET['error']) : '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -111,6 +135,9 @@ $success = isset($_GET['success']) && $_GET['success'] === '1';
                 <p>Upload a project, add a short description, and let people discover what you built.</p>
                 <?php if ($success): ?>
                     <div class="success-box">Your project was uploaded successfully.</div>
+                <?php endif; ?>
+                <?php if ($error !== ''): ?>
+                    <div class="error-box"><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></div>
                 <?php endif; ?>
             </div>
             <div class="hero-panel">
