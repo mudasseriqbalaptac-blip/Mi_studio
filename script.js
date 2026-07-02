@@ -1,3 +1,22 @@
+function previewSelectedImage(input) {
+    const preview = document.getElementById('imagePreview');
+    if (!preview || !input || !input.files || !input.files[0]) {
+        return;
+    }
+
+    const file = input.files[0];
+    if (!file.type.startsWith('image/')) {
+        preview.innerHTML = '<span>Choose a valid image file</span>';
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function (event) {
+        preview.innerHTML = `<img src="${event.target.result}" alt="Selected project preview">`;
+    };
+    reader.readAsDataURL(file);
+}
+
 function exploreProjects(button) {
     const projectsSection = document.getElementById('projects');
     if (projectsSection) {
