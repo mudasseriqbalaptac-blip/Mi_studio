@@ -38,6 +38,7 @@ function exploreProjects(button) {
 function toggleMobileMenu() {
     const btn   = document.getElementById('hamburgerBtn');
     const links = document.getElementById('navLinks');
+    if (!btn || !links) return;
     btn.classList.toggle('open');
     links.classList.toggle('open');
 }
@@ -45,6 +46,7 @@ function toggleMobileMenu() {
 function closeMobileMenu() {
     const btn   = document.getElementById('hamburgerBtn');
     const links = document.getElementById('navLinks');
+    if (!btn || !links) return;
     btn.classList.remove('open');
     links.classList.remove('open');
 }
@@ -59,13 +61,19 @@ document.addEventListener('click', (e) => {
 
 
 function showLogin(){
-    document.getElementById("loginForm").classList.add("active");
-    document.getElementById("signupForm").classList.remove("active");
+    const loginForm = document.getElementById("loginForm");
+    const signupForm = document.getElementById("signupForm");
+    if (!loginForm || !signupForm) return;
+    loginForm.classList.add("active");
+    signupForm.classList.remove("active");
 }
 
 function showSignup(){
-    document.getElementById("signupForm").classList.add("active");
-    document.getElementById("loginForm").classList.remove("active");
+    const loginForm = document.getElementById("loginForm");
+    const signupForm = document.getElementById("signupForm");
+    if (!loginForm || !signupForm) return;
+    signupForm.classList.add("active");
+    loginForm.classList.remove("active");
 }
 
 /* AI Hub Tab Switching */
@@ -76,9 +84,11 @@ function switchAITab(tabId) {
     const buttons = document.querySelectorAll('.ai-tab-btn');
     buttons.forEach(btn => btn.classList.remove('active'));
 
-    document.getElementById(tabId).classList.add('active');
+    const activeTab = document.getElementById(tabId);
+    if (!activeTab) return;
+    activeTab.classList.add('active');
 
-    const currentBtn = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(tabId));
+    const currentBtn = Array.from(buttons).find(btn => (btn.getAttribute('onclick') || '').includes(tabId));
     if (currentBtn) currentBtn.classList.add('active');
 }
 
@@ -86,8 +96,10 @@ function switchAITab(tabId) {
 let isTyping = false;
 function generateAICode() {
     if (isTyping) return;
-    const prompt = document.getElementById('codePrompt').value.toLowerCase().trim();
+    const promptInput = document.getElementById('codePrompt');
     const terminal = document.getElementById('terminalOutput');
+    if (!promptInput || !terminal) return;
+    const prompt = promptInput.value.toLowerCase().trim();
     terminal.innerHTML = '';
     isTyping = true;
 
@@ -117,8 +129,10 @@ function generateAICode() {
 
 /* Tool 2: Theme Palette Generator */
 function generateAIPalette() {
-    const prompt = document.getElementById('palettePrompt').value.toLowerCase().trim();
+    const promptInput = document.getElementById('palettePrompt');
     const output = document.getElementById('paletteOutput');
+    if (!promptInput || !output) return;
+    const prompt = promptInput.value.toLowerCase().trim();
     output.innerHTML = '<p class="placeholder-text">Analyzing aesthetics...</p>';
 
     let colors = [];
@@ -151,8 +165,10 @@ function generateAIPalette() {
 
 /* Tool 3: Project Idea Generator */
 function generateAIIdeas() {
-    const stack = document.getElementById('ideaTechStack').value;
+    const stackInput = document.getElementById('ideaTechStack');
     const output = document.getElementById('ideasOutput');
+    if (!stackInput || !output) return;
+    const stack = stackInput.value;
     output.innerHTML = '<p class="placeholder-text">Brainstorming options...</p>';
 
     let ideas = [];
@@ -324,10 +340,10 @@ window.addEventListener('load', () => {
     const error = params.get('error');
 
     if (message && saved === '1') {
-        showToast(decodeURIComponent(message), 'success');
+        showToast(message, 'success');
         window.history.replaceState({}, document.title, window.location.pathname);
     } else if (message && error) {
-        showToast(decodeURIComponent(message), 'error');
+        showToast(message, 'error');
         window.history.replaceState({}, document.title, window.location.pathname);
     }
 });
