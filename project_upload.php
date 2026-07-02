@@ -186,5 +186,6 @@ $success = isset($_GET['success']) && $_GET['success'] === '1';
         </section>
     </main>
 </div>
+<script src="script.js"></script>
 </body>
 </html>
