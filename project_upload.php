@@ -37,6 +37,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = sanitizeText($_POST['project_description'] ?? '');
     $link = sanitizeText($_POST['project_link'] ?? '');
     $category = sanitizeText($_POST['project_category'] ?? 'General');
+    $uploadedBy = sanitizeText($_POST['uploaded_by'] ?? '');
+    if ($uploadedBy === '') {
+        $uploadedBy = 'Anonymous';
+    }
 
     $imagePath = '';
     if (isset($_FILES['project_image']) && $_FILES['project_image']['error'] === UPLOAD_ERR_OK) {
@@ -62,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'description' => $description,
         'link' => $link,
         'category' => $category,
+        'uploaded_by' => $uploadedBy,
         'image' => $imagePath,
         'created_at' => date('Y-m-d H:i:s')
     ];
@@ -119,6 +124,10 @@ $success = isset($_GET['success']) && $_GET['success'] === '1';
                         <input type="text" name="project_title" placeholder="My awesome project" required>
                     </label>
                     <label>
+                        Your name
+                        <input type="text" name="uploaded_by" placeholder="Your name" required>
+                    </label>
+                    <label>
                         Category
                         <input type="text" name="project_category" placeholder="Web Design, App, AI, etc.">
                     </label>
@@ -168,6 +177,7 @@ $success = isset($_GET['success']) && $_GET['success'] === '1';
                                     <span><?php echo htmlspecialchars($project['category'] ?: 'General', ENT_QUOTES, 'UTF-8'); ?></span>
                                     <span><?php echo htmlspecialchars($project['created_at'], ENT_QUOTES, 'UTF-8'); ?></span>
                                 </div>
+                                <p class="project-uploader">By <?php echo htmlspecialchars($project['uploaded_by'] ?? $project['user_name'] ?? 'Anonymous', ENT_QUOTES, 'UTF-8'); ?></p>
                                 <h3><?php echo htmlspecialchars($project['title'], ENT_QUOTES, 'UTF-8'); ?></h3>
                                 <p><?php echo htmlspecialchars($project['description'], ENT_QUOTES, 'UTF-8'); ?></p>
                                 <?php if (!empty($project['link'])): ?>
