@@ -95,6 +95,7 @@ $categories = array_values(array_unique($categories));
                                     <span><?php echo htmlspecialchars(($project['category'] ?? 'General') ?: 'General', ENT_QUOTES, 'UTF-8'); ?></span>
                                     <span><?php echo htmlspecialchars($project['created_at'] ?? '', ENT_QUOTES, 'UTF-8'); ?></span>
                                 </div>
+                                <p class="project-uploader">By <?php echo htmlspecialchars($project['uploaded_by'] ?? $project['user_name'] ?? 'Anonymous', ENT_QUOTES, 'UTF-8'); ?></p>
                                 <h3><?php echo htmlspecialchars($project['title'] ?? 'Untitled project', ENT_QUOTES, 'UTF-8'); ?></h3>
                                 <p><?php echo htmlspecialchars($project['description'] ?? 'No description provided yet.', ENT_QUOTES, 'UTF-8'); ?></p>
                                 <?php if (!empty($project['link'])): ?>
