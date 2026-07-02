@@ -3,607 +3,250 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Mi Studio — Modern Frontend & Backend Development. We build stunning digital experiences using cutting-edge technologies.">
-    <title>Mi Studio | Code. Create. Innovate.</title>
+    <meta name="description" content="Mi Studio is a social space for developers and coders to share projects, snippets, questions, and build logs.">
+    <title>Mi Studio | Developer Social Network</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-
-<!-- Custom Cursor -->
-<div id="custom-cursor"></div>
-<div id="cursor-trail"></div>
-
-<!-- Toast Container -->
+<body class="dev-social-body">
 <div id="toast-container"></div>
-
-<!-- Scroll Progress Bar -->
 <div id="scroll-progress"></div>
 
-<!-- Parallax Orbs -->
-<div class="parallax-orb orb-1"></div>
-<div class="parallax-orb orb-2"></div>
-<div class="parallax-orb orb-3"></div>
-
-<!-- Back To Top -->
-<button id="backToTop" onclick="scrollToTop()" title="Back to top">↑</button>
-
-<!-- ======================== NAV ======================== -->
-<nav id="mainNav">
-    <div class="nav-container">
-        <div class="logo">
+<nav id="mainNav" class="social-nav">
+    <div class="nav-container social-nav-inner">
+        <a class="logo social-logo" href="home.html" aria-label="Mi Studio home">
             <img src="mi-studio-logo.png" alt="Mi Studio Logo">
             <h2>Mi Studio</h2>
-        </div>
+        </a>
+
+        <label class="social-search" for="globalSearch">
+            <span>#</span>
+            <input id="globalSearch" type="search" placeholder="Search devs, code, projects">
+        </label>
+
         <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()" aria-label="Toggle navigation">
             <span></span><span></span><span></span>
         </button>
-        <ul id="navLinks">
-            <li><a href="#"              onclick="closeMobileMenu()">Home</a></li>
-            <li><a href="#about"         onclick="closeMobileMenu()">About</a></li>
-            <li><a href="#services"      onclick="closeMobileMenu()">Services</a></li>
-            <li><a href="#projects"      onclick="closeMobileMenu()">Projects</a></li>
-            <li><a href="#tools"         onclick="closeMobileMenu()">Tools</a></li>
-            <li><a href="#contact"       onclick="closeMobileMenu()">Contact</a></li>
-            <li><a href="project_upload.php" onclick="closeMobileMenu()">Upload Project</a></li>
-            <li><a href="all_projects.php" onclick="closeMobileMenu()">All Projects</a></li>
+
+        <ul id="navLinks" class="social-nav-links">
+            <li><a href="#feed" onclick="closeMobileMenu()">Feed</a></li>
+            <li><a href="#projects" onclick="closeMobileMenu()">Projects</a></li>
+            <li><a href="#communities" onclick="closeMobileMenu()">Communities</a></li>
+            <li><a href="#jobs" onclick="closeMobileMenu()">Jobs</a></li>
+            <li><a href="project_upload.php" onclick="closeMobileMenu()">Upload</a></li>
             <li><a href="login_and_singin.html" class="nav-login-btn">Login</a></li>
         </ul>
     </div>
 </nav>
 
-<!-- ======================== HERO ======================== -->
-<section class="hero">
-    <canvas id="heroCanvas"></canvas>
-    <div class="hero-container">
-        <div class="hero-text reveal-left">
-            <div class="hero-badge">✦ Available for new projects</div>
-            <h1>Designing bold digital <span class="gradient-text">experiences.</span></h1>
-            <p class="typewriter-wrapper">We build <span id="typewriter" class="typewriter-text"></span></p>
-            <p class="hero-desc">We blend strategy, stunning visuals, and reliable development to turn ambitious ideas into launch-ready digital products.</p>
-            <div class="hero-highlights">
-                <span>⚡ Fast delivery</span>
-                <span>🎯 UI/UX focused</span>
-                <span>🔒 Secure builds</span>
+<main class="social-shell">
+    <aside class="left-rail">
+        <section class="profile-panel">
+            <div class="profile-cover"></div>
+            <img src="mi-studio-logo.png" alt="Mi Studio" class="profile-avatar">
+            <h1>Mi Studio Devs</h1>
+            <p>Build logs, project drops, snippets, and coding help for developers.</p>
+            <div class="profile-stats">
+                <span><strong>12.8k</strong> coders</span>
+                <span><strong>426</strong> projects</span>
+                <span><strong>91</strong> teams</span>
             </div>
-            <div class="hero-metrics">
+        </section>
+
+        <section class="rail-menu">
+            <a href="#feed"><span>⌂</span> Home Feed</a>
+            <a href="#projects"><span>{ }</span> Project Showcase</a>
+            <a href="#communities"><span>&lt;/&gt;</span> Code Rooms</a>
+            <a href="#jobs"><span>$</span> Dev Jobs</a>
+            <a href="all_projects.php"><span>↗</span> All Projects</a>
+        </section>
+    </aside>
+
+    <section class="main-feed" id="feed">
+        <div class="feed-hero">
+            <div>
+                <p class="eyebrow">Developer network</p>
+                <h2>Share what you build. Find coders who care.</h2>
+                <p>Mi Studio is now a feed-first community for snippets, projects, bugs, launches, and developer collaboration.</p>
+            </div>
+            <a href="project_upload.php" class="btn">Post a Project →</a>
+        </div>
+
+        <div class="dev-stories" aria-label="Developer highlights">
+            <article class="story-card active">
+                <span class="story-avatar">JS</span>
+                <strong>JavaScript</strong>
+                <small>42 new posts</small>
+            </article>
+            <article class="story-card">
+                <span class="story-avatar">UI</span>
+                <strong>UI Builds</strong>
+                <small>18 showcases</small>
+            </article>
+            <article class="story-card">
+                <span class="story-avatar">AI</span>
+                <strong>AI Tools</strong>
+                <small>9 demos</small>
+            </article>
+            <article class="story-card">
+                <span class="story-avatar">PHP</span>
+                <strong>Backend</strong>
+                <small>27 fixes</small>
+            </article>
+        </div>
+
+        <form class="composer-card" id="contactForm" action="save_data.php" method="post" onsubmit="handleContactSubmit(event)">
+            <input type="hidden" name="form_type" value="contact">
+            <img src="mi-studio-logo.png" alt="" class="composer-avatar">
+            <div class="composer-main">
+                <input type="text" id="contactName" name="name" placeholder="Your name" required autocomplete="name">
+                <input type="email" id="contactEmail" name="email" placeholder="Email address" required autocomplete="email">
+                <input type="text" id="contactSubject" name="subject" placeholder="Post title, bug, idea, or collaboration request">
+                <textarea id="contactMessage" name="message" placeholder="Share a code question, build log, launch update, or idea..." required maxlength="500"></textarea>
+                <div class="composer-actions">
+                    <span class="char-counter" id="charCounter">0 / 500</span>
+                    <button type="submit" class="btn" id="contactSubmitBtn">Publish</button>
+                </div>
+            </div>
+        </form>
+
+        <article class="feed-post">
+            <header class="post-header">
+                <div class="post-avatar gradient-a">AR</div>
                 <div>
-                    <strong>10+</strong>
-                    <span>Launches shipped</span>
+                    <h3>Ayesha Rahman</h3>
+                    <p>Frontend Developer · 12 min ago</p>
                 </div>
+                <button class="post-menu" aria-label="Post menu">⋯</button>
+            </header>
+            <p class="post-copy">Shipped a dashboard redesign with reusable cards, keyboard-friendly filters, and a cleaner mobile layout. The best part: Lighthouse performance stayed above 95.</p>
+            <div class="code-preview">
+<pre><code>.metric-card {
+  display: grid;
+  gap: 8px;
+  border: 1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(14px);
+}</code></pre>
+            </div>
+            <footer class="post-actions">
+                <button>♡ 248</button>
+                <button>💬 34</button>
+                <button>↗ Share</button>
+            </footer>
+        </article>
+
+        <article class="feed-post project-feature" id="projects">
+            <header class="post-header">
+                <div class="post-avatar gradient-b">MS</div>
                 <div>
-                    <strong>24/7</strong>
-                    <span>Support mindset</span>
+                    <h3>Mi Studio Team</h3>
+                    <p>Project showcase · Featured</p>
                 </div>
+                <a href="all_projects.php" class="post-link">View all</a>
+            </header>
+            <p class="post-copy">Featured community projects from coders building real products, not just screenshots.</p>
+            <div class="project-strip">
+                <article>
+                    <img src="uploads/projects/project_6a460576ce65a.png" alt="Community project preview">
+                    <h4>Creative UI Build</h4>
+                    <p>Interface experiment shared by the community.</p>
+                </article>
+                <article>
+                    <img src="uploads/projects/project_6a4607845f0ba.jpg" alt="Developer project preview">
+                    <h4>Launch Screenshot</h4>
+                    <p>Polished project preview from recent uploads.</p>
+                </article>
             </div>
-            <div class="hero-btns">
-                <button class="btn" id="exploreBtn" onclick="exploreProjects(this)">See our work →</button>
-                <a href="#contact" class="btn btn-outline">Book a call</a>
-            </div>
-            <div class="hero-socials">
-                <a href="#" class="social-icon" title="GitHub" aria-label="GitHub">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-                </a>
-                <a href="#" class="social-icon" title="LinkedIn" aria-label="LinkedIn">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                </a>
-                <a href="#" class="social-icon" title="Twitter / X" aria-label="Twitter">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                </a>
-            </div>
-        </div>
-        <div class="hero-image reveal-right">
-            <div class="hero-img-wrapper">
-                <img src="mi-studio-logo.png" alt="Mi Studio Logo">
-                <div class="hero-img-ring"></div>
-                <div class="hero-img-ring ring-2"></div>
-                <div class="hero-float-card">
-                    <span class="float-dot"></span>
-                    <div>
-                        <strong>Launching fast</strong>
-                        <p>From concept to launch in weeks</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="hero-scroll-hint">
-        <span>Scroll to explore</span>
-        <div class="scroll-arrow"></div>
-    </div>
-</section>
+        </article>
 
-<!-- ======================== STATS ======================== -->
-<section id="stats" class="section stats-section">
-    <div class="section-container">
-        <div class="stats-grid">
-            <div class="stat-item reveal reveal-delay-1">
-                <div class="stat-number-wrap">
-                    <span class="stat-number" data-target="50">0</span><span class="stat-plus">+</span>
+        <article class="feed-post" id="communities">
+            <header class="post-header">
+                <div class="post-avatar gradient-c">DK</div>
+                <div>
+                    <h3>Daniyal Khan</h3>
+                    <p>Backend Developer · 1 hr ago</p>
                 </div>
-                <div class="stat-label">Projects Completed</div>
+                <button class="post-menu" aria-label="Post menu">⋯</button>
+            </header>
+            <p class="post-copy">Looking for two developers to build an open-source API monitoring tool. Stack: PHP, MySQL, vanilla JS, and a tiny worker queue.</p>
+            <div class="tag-row">
+                <span>#opensource</span>
+                <span>#php</span>
+                <span>#mysql</span>
+                <span>#collaboration</span>
             </div>
-            <div class="stat-item reveal reveal-delay-2">
-                <div class="stat-number-wrap">
-                    <span class="stat-number" data-target="30">0</span><span class="stat-plus">+</span>
-                </div>
-                <div class="stat-label">Happy Clients</div>
-            </div>
-            <div class="stat-item reveal reveal-delay-3">
-                <div class="stat-number-wrap">
-                    <span class="stat-number" data-target="15">0</span><span class="stat-plus">+</span>
-                </div>
-                <div class="stat-label">Technologies Used</div>
-            </div>
-            <div class="stat-item reveal reveal-delay-4">
-                <div class="stat-number-wrap">
-                    <span class="stat-number" data-target="1">0</span><span class="stat-plus">+</span>
-                </div>
-                <div class="stat-label">Years of Experience</div>
-            </div>
-        </div>
-    </div>
-</section>
+            <footer class="post-actions">
+                <button>♡ 119</button>
+                <button>💬 21</button>
+                <button>Join thread</button>
+            </footer>
+        </article>
 
-<!-- ======================== ABOUT ======================== -->
-<section id="about" class="section">
-    <div class="section-container">
-        <h2 class="reveal">About Mi Studio</h2>
-        <div class="about-grid">
-            <div class="about-content reveal-left">
-                <p class="about-desc">Mi Studio is a creative digital studio building modern websites, web applications, and immersive digital experiences. We combine cutting-edge technology with beautiful design to deliver products that stand out.</p>
-                <p class="about-desc" style="margin-top:16px;">From concept to deployment, we handle every layer — frontend, backend, and everything in between.</p>
-                <div class="skills-list">
-                    <div class="skill-item">
-                        <div class="skill-header"><span>HTML / CSS</span><span>95%</span></div>
-                        <div class="skill-bar"><div class="skill-fill" data-width="95"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header"><span>JavaScript / React</span><span>88%</span></div>
-                        <div class="skill-bar"><div class="skill-fill" data-width="88"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header"><span>Node.js / PHP</span><span>80%</span></div>
-                        <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header"><span>UI/UX Design</span><span>85%</span></div>
-                        <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
-                    </div>
-                </div>
+        <section class="jobs-panel" id="jobs">
+            <div>
+                <p class="eyebrow">Hiring board</p>
+                <h2>Developer opportunities</h2>
             </div>
-            <div class="about-stack reveal-right">
-                <h3 class="stack-title">Tech Stack</h3>
-                <div class="tech-icons">
-                    <div class="tech-icon"><span class="tech-emoji">🌐</span><span>HTML5</span></div>
-                    <div class="tech-icon"><span class="tech-emoji">🎨</span><span>CSS3</span></div>
-                    <div class="tech-icon"><span class="tech-emoji">⚡</span><span>JS</span></div>
-                    <div class="tech-icon"><span class="tech-emoji">⚛️</span><span>React</span></div>
-                    <div class="tech-icon"><span class="tech-emoji">🟢</span><span>Node.js</span></div>
-                    <div class="tech-icon"><span class="tech-emoji">🐘</span><span>PHP</span></div>
-                    <div class="tech-icon"><span class="tech-emoji">🗄️</span><span>MySQL</span></div>
-                    <div class="tech-icon"><span class="tech-emoji">✏️</span><span>Figma</span></div>
-                    <div class="tech-icon"><span class="tech-emoji">🔧</span><span>Git</span></div>
-                </div>
+            <div class="job-list">
+                <article>
+                    <strong>Frontend Intern</strong>
+                    <span>Remote · React · Portfolio required</span>
+                </article>
+                <article>
+                    <strong>PHP Project Partner</strong>
+                    <span>Part-time · MySQL · API work</span>
+                </article>
+                <article>
+                    <strong>UI Designer for SaaS</strong>
+                    <span>Contract · Figma · Design system</span>
+                </article>
             </div>
-        </div>
-    </div>
-</section>
+        </section>
+    </section>
 
-<!-- ======================== SERVICES ======================== -->
-<section id="services" class="section">
-    <div class="section-container">
-        <h2 class="reveal">Our Services</h2>
-        <p class="section-desc reveal reveal-delay-1">Premium digital solutions tailored to your vision and goals.</p>
-        <div class="cards">
-            <div class="card service-card reveal reveal-delay-1">
-                <div class="card-icon">⚡</div>
-                <h3>Frontend Dev</h3>
-                <p>Beautiful, fast, and responsive interfaces built with modern frameworks.</p>
-                <ul class="service-list">
-                    <li>Responsive UI Design</li>
-                    <li>React / Vue Applications</li>
-                    <li>Performance Optimization</li>
-                </ul>
+    <aside class="right-rail">
+        <section class="side-card">
+            <h3>Trending Tags</h3>
+            <div class="trend-list">
+                <a href="#feed">#javascript <span>8.2k</span></a>
+                <a href="#feed">#webdev <span>6.7k</span></a>
+                <a href="#feed">#php <span>3.1k</span></a>
+                <a href="#feed">#uiux <span>2.9k</span></a>
+                <a href="#feed">#debugging <span>1.4k</span></a>
             </div>
-            <div class="card service-card reveal reveal-delay-2">
-                <div class="card-icon">⚙️</div>
-                <h3>Backend Dev</h3>
-                <p>Robust server-side solutions with scalable architecture and secure APIs.</p>
-                <ul class="service-list">
-                    <li>REST / GraphQL APIs</li>
-                    <li>PHP, Node.js, MySQL</li>
-                    <li>Secure Authentication</li>
-                </ul>
-            </div>
-            <div class="card service-card reveal reveal-delay-3">
-                <div class="card-icon">🎨</div>
-                <h3>UI/UX Design</h3>
-                <p>Intuitive and stunning designs that delight users and drive real results.</p>
-                <ul class="service-list">
-                    <li>Wireframes &amp; Prototypes</li>
-                    <li>Figma Design Systems</li>
-                    <li>User Research &amp; Testing</li>
-                </ul>
-            </div>
-            <div class="card service-card reveal reveal-delay-4">
-                <div class="card-icon">📱</div>
-                <h3>Mobile-First</h3>
-                <p>Pixel-perfect experiences across all screen sizes and devices.</p>
-                <ul class="service-list">
-                    <li>Progressive Web Apps</li>
-                    <li>Mobile Optimization</li>
-                    <li>Cross-Browser Testing</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
+        </section>
 
-<!-- ======================== PROJECTS ======================== -->
-<section id="projects" class="section">
-    <div class="section-container">
-        <h2 class="reveal">Featured Projects</h2>
-        <p class="section-desc reveal reveal-delay-1">A selection of our finest digital work.</p>
+        <section class="side-card">
+            <h3>Suggested Coders</h3>
+            <div class="coder-row">
+                <span class="mini-avatar gradient-a">FR</span>
+                <div><strong>Fatima R.</strong><small>React, CSS</small></div>
+                <button>Follow</button>
+            </div>
+            <div class="coder-row">
+                <span class="mini-avatar gradient-b">HU</span>
+                <div><strong>Hamza U.</strong><small>PHP, APIs</small></div>
+                <button>Follow</button>
+            </div>
+            <div class="coder-row">
+                <span class="mini-avatar gradient-c">SA</span>
+                <div><strong>Sara A.</strong><small>UI, Product</small></div>
+                <button>Follow</button>
+            </div>
+        </section>
 
-        <div class="project-filter reveal reveal-delay-2">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="frontend">Frontend</button>
-            <button class="filter-btn" data-filter="backend">Backend</button>
-            <button class="filter-btn" data-filter="design">Design</button>
-        </div>
+        <section class="side-card ai-mini">
+            <h3>Code Prompt</h3>
+            <p>Need inspiration? Try: “Build a login page with profile feed and project cards.”</p>
+            <a href="project_upload.php" class="btn btn-sm">Share Build</a>
+        </section>
+    </aside>
+</main>
 
-        <div class="cards projects-grid">
-            <div class="card project-card" data-category="frontend backend">
-                <div class="project-banner" style="background:linear-gradient(135deg,#7B2CFF,#FF00AA)"><span class="project-number">01</span></div>
-                <div class="project-body">
-                    <h3>E-Commerce Platform</h3>
-                    <p>Full-stack storefront with real-time checkout, cart management, and admin dashboard.</p>
-                    <div class="project-tags"><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">MySQL</span></div>
-                    <a href="#" class="btn btn-sm">View Project →</a>
-                </div>
-            </div>
-            <div class="card project-card" data-category="design frontend">
-                <div class="project-banner" style="background:linear-gradient(135deg,#00c6ff,#0072ff)"><span class="project-number">02</span></div>
-                <div class="project-body">
-                    <h3>Portfolio Website</h3>
-                    <p>Minimalistic, highly responsive portfolio for creators with smooth scroll animations.</p>
-                    <div class="project-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span></div>
-                    <a href="#" class="btn btn-sm">View Project →</a>
-                </div>
-            </div>
-            <div class="card project-card" data-category="backend frontend">
-                <div class="project-banner" style="background:linear-gradient(135deg,#11998e,#38ef7d)"><span class="project-number">03</span></div>
-                <div class="project-body">
-                    <h3>Management Dashboard</h3>
-                    <p>Data visualization dashboard for team workflows with real-time analytics &amp; charts.</p>
-                    <div class="project-tags"><span class="tag">React</span><span class="tag">PHP</span><span class="tag">Chart.js</span></div>
-                    <a href="#" class="btn btn-sm">View Project →</a>
-                </div>
-            </div>
-            <div class="card project-card" data-category="design">
-                <div class="project-banner" style="background:linear-gradient(135deg,#f7971e,#ffd200)"><span class="project-number">04</span></div>
-                <div class="project-body">
-                    <h3>Brand Design System</h3>
-                    <p>Complete design system with components, typography, and color tokens for a SaaS product.</p>
-                    <div class="project-tags"><span class="tag">Figma</span><span class="tag">Design</span><span class="tag">CSS</span></div>
-                    <a href="#" class="btn btn-sm">View Project →</a>
-                </div>
-            </div>
-            <div class="card project-card" data-category="backend">
-                <div class="project-banner" style="background:linear-gradient(135deg,#c94b4b,#4b134f)"><span class="project-number">05</span></div>
-                <div class="project-body">
-                    <h3>REST API Service</h3>
-                    <p>Secure and scalable RESTful API with auth, rate-limiting, and full documentation.</p>
-                    <div class="project-tags"><span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">MongoDB</span></div>
-                    <a href="#" class="btn btn-sm">View Project →</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ======================== TESTIMONIALS ======================== -->
-<section id="testimonials" class="section">
-    <div class="section-container">
-        <h2 class="reveal">What Clients Say</h2>
-        <p class="section-desc reveal reveal-delay-1">Real feedback from the people we've worked with.</p>
-        <div class="testimonial-carousel reveal reveal-delay-2" id="testimonialCarousel">
-            <div class="testimonial-track" id="testimonialTrack">
-                <div class="testimonial-slide active">
-                    <div class="testimonial-card">
-                        <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"Mi Studio delivered our e-commerce platform ahead of schedule. The attention to detail and code quality was outstanding. Our sales increased 40% after launch!"</p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar" style="background:linear-gradient(135deg,#7B2CFF,#FF00AA)">JD</div>
-                            <div class="author-info"><strong>James Donovan</strong><span>CEO, ShopNova Inc.</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-slide">
-                    <div class="testimonial-card">
-                        <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"The dashboard they built transformed how our team works. Clean UI, fast performance, and the backend was rock solid. Couldn't be happier with the results."</p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar" style="background:linear-gradient(135deg,#00c6ff,#0072ff)">SR</div>
-                            <div class="author-info"><strong>Sarah Rahman</strong><span>CTO, FlowMetrics</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-slide">
-                    <div class="testimonial-card">
-                        <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"Professional, creative, and communicative throughout. Mi Studio took our brand vision and turned it into a digital masterpiece. Highly recommended!"</p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar" style="background:linear-gradient(135deg,#11998e,#38ef7d)">MK</div>
-                            <div class="author-info"><strong>Marcus Kim</strong><span>Founder, Luminary Creative</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-controls">
-                <button class="carousel-btn" onclick="prevTestimonial()" aria-label="Previous">&#8592;</button>
-                <div class="carousel-dots" id="carouselDots">
-                    <span class="carousel-dot active" onclick="goToTestimonial(0)"></span>
-                    <span class="carousel-dot" onclick="goToTestimonial(1)"></span>
-                    <span class="carousel-dot" onclick="goToTestimonial(2)"></span>
-                </div>
-                <button class="carousel-btn" onclick="nextTestimonial()" aria-label="Next">&#8594;</button>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ======================== TOOLS ======================== -->
-<section id="tools" class="section">
-    <div class="section-container">
-        <h2 class="reveal">Developer Tools</h2>
-        <p class="section-desc reveal reveal-delay-1">Everything needed to design, build, and launch modern digital products faster.</p>
-        <div class="cards tools-grid">
-            <div class="card tool-card reveal reveal-delay-1">
-                <div class="card-icon">🤖</div>
-                <h3>Code Companion</h3>
-                <p>Generate polished UI components and reusable frontend snippets in seconds.</p>
-                <button class="btn" onclick="scrollToAIHub('code-helper')">Open Tool</button>
-            </div>
-            <div class="card tool-card reveal reveal-delay-2">
-                <div class="card-icon">🎨</div>
-                <h3>Palette Generator</h3>
-                <p>Create stunning color systems for websites, apps, and brand experiences.</p>
-                <button class="btn" onclick="scrollToAIHub('palette-gen')">Open Tool</button>
-            </div>
-            <div class="card tool-card reveal reveal-delay-3">
-                <div class="card-icon">💡</div>
-                <h3>Idea Generator</h3>
-                <p>Brainstorm product concepts tailored to your favorite tech stack.</p>
-                <button class="btn" onclick="scrollToAIHub('idea-gen')">Open Tool</button>
-            </div>
-            <div class="card tool-card reveal reveal-delay-4">
-                <div class="card-icon">🎬</div>
-                <h3>CSS Animator</h3>
-                <p>Generate production-ready CSS keyframe animations for any element or effect.</p>
-                <button class="btn" onclick="scrollToAIHub('css-animator')">Open Tool</button>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ======================== AI HUB ======================== -->
-<section id="ai-hub" class="section">
-    <div class="section-container">
-        <h2 class="reveal">AI Hub</h2>
-        <p class="section-desc reveal reveal-delay-1">Interact with our smart AI assistant tools to help boost your creative workflow instantly.</p>
-
-        <div class="ai-tabs-container reveal reveal-delay-2">
-            <div class="ai-tabs">
-                <button class="ai-tab-btn active" onclick="switchAITab('code-helper')">🤖 Code Companion</button>
-                <button class="ai-tab-btn" onclick="switchAITab('palette-gen')">🎨 Theme Palette</button>
-                <button class="ai-tab-btn" onclick="switchAITab('idea-gen')">💡 Idea Generator</button>
-                <button class="ai-tab-btn" onclick="switchAITab('css-animator')">🎬 CSS Animator</button>
-            </div>
-
-            <!-- Tab 1: Code Companion -->
-            <div class="ai-tab-content active" id="code-helper">
-                <div class="ai-tool-panel">
-                    <div class="ai-input-pane">
-                        <h3>AI Code Companion</h3>
-                        <p>Describe the component you need, and the AI will draft the code snippet.</p>
-                        <input type="text" id="codePrompt" placeholder="e.g. glassmorphic login button or neon card" value="glassmorphic login button">
-                        <button class="btn" onclick="generateAICode()">Generate Code</button>
-                    </div>
-                    <div class="ai-output-pane">
-                        <div class="mock-terminal">
-                            <div class="terminal-header">
-                                <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-                                <span class="terminal-title">ai-code-compiler.js</span>
-                            </div>
-                            <div class="terminal-body"><pre><code id="terminalOutput">// Code will render here...</code></pre></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tab 2: Theme Palette -->
-            <div class="ai-tab-content" id="palette-gen">
-                <div class="ai-tool-panel">
-                    <div class="ai-input-pane">
-                        <h3>Theme Palette Generator</h3>
-                        <p>Input a mood or aesthetic keyword to create a cohesive web design color palette.</p>
-                        <input type="text" id="palettePrompt" placeholder="e.g. Cyberpunk, Retro Wave, Forest Mist" value="Cyberpunk">
-                        <button class="btn" onclick="generateAIPalette()">Generate Palette</button>
-                    </div>
-                    <div class="ai-output-pane">
-                        <div class="palette-output" id="paletteOutput">
-                            <p class="placeholder-text">Enter a mood keyword and click Generate...</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tab 3: Idea Generator -->
-            <div class="ai-tab-content" id="idea-gen">
-                <div class="ai-tool-panel">
-                    <div class="ai-input-pane">
-                        <h3>Idea Generator</h3>
-                        <p>Select your favorite tech stack to receive unique tailored project ideas.</p>
-                        <select id="ideaTechStack">
-                            <option value="React & Node.js">React + Node.js + MongoDB</option>
-                            <option value="Next.js & Supabase">Next.js + Tailwind + Supabase</option>
-                            <option value="HTML & CSS & JS">Pure HTML/CSS + JavaScript</option>
-                        </select>
-                        <button class="btn" onclick="generateAIIdeas()">Brainstorm Projects</button>
-                    </div>
-                    <div class="ai-output-pane">
-                        <div class="ideas-output" id="ideasOutput">
-                            <p class="placeholder-text">Select a tech stack and click Brainstorm...</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tab 4: CSS Animator -->
-            <div class="ai-tab-content" id="css-animator">
-                <div class="ai-tool-panel">
-                    <div class="ai-input-pane">
-                        <h3>CSS Animator</h3>
-                        <p>Select an animation type to generate production-ready CSS keyframe code.</p>
-                        <select id="animationType">
-                            <option value="bounce">Bounce</option>
-                            <option value="fade">Fade In / Out</option>
-                            <option value="slide">Slide In</option>
-                            <option value="pulse">Pulse / Glow</option>
-                            <option value="spin">Spin</option>
-                            <option value="shake">Shake</option>
-                            <option value="typewriter">Typewriter</option>
-                            <option value="float">Float / Levitate</option>
-                        </select>
-                        <button class="btn" onclick="generateCSSAnimation()">Generate Animation</button>
-                    </div>
-                    <div class="ai-output-pane">
-                        <div class="mock-terminal">
-                            <div class="terminal-header">
-                                <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-                                <span class="terminal-title">css-animation.css</span>
-                            </div>
-                            <div class="terminal-body"><pre><code id="cssAnimatorOutput">/* Select an animation and click Generate... */</code></pre></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ======================== CONTACT ======================== -->
-<section id="contact" class="section">
-    <div class="section-container">
-        <h2 class="reveal">Get In Touch</h2>
-        <p class="section-desc reveal reveal-delay-1">Have a project in mind? Let's talk and bring your vision to life.</p>
-        <div class="contact-layout">
-            <div class="contact-info reveal-left">
-                <h3>Let's Talk</h3>
-                <p>We're always open to new projects, collaborations, and creative challenges. Drop us a message and we'll get back to you within 24 hours!</p>
-                <div class="contact-items">
-                    <div class="contact-item">
-                        <span class="contact-item-icon">📧</span>
-                        <div class="contact-item-text"><strong>Email</strong><span>hello@mistudio.dev</span></div>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-item-icon">📱</span>
-                        <div class="contact-item-text"><strong>Phone</strong><span>+1 (555) 123-4567</span></div>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-item-icon">📍</span>
-                        <div class="contact-item-text"><strong>Location</strong><span>Remote — Worldwide</span></div>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-item-icon">⏰</span>
-                        <div class="contact-item-text"><strong>Response Time</strong><span>Within 24 hours</span></div>
-                    </div>
-                </div>
-            </div>
-            <form class="contact-form reveal-scale" id="contactForm" action="save_data.php" method="post" onsubmit="handleContactSubmit(event)">
-                <input type="hidden" name="form_type" value="contact">
-                <div class="form-group">
-                    <input type="text" id="contactName" name="name" placeholder="Your Name" required autocomplete="name">
-                    <span class="form-icon" id="nameIcon"></span>
-                </div>
-                <div class="form-group">
-                    <input type="email" id="contactEmail" name="email" placeholder="Email Address" required autocomplete="email">
-                    <span class="form-icon" id="emailIcon"></span>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="contactSubject" name="subject" placeholder="Subject">
-                    <span class="form-icon" id="subjectIcon"></span>
-                </div>
-                <div class="form-group textarea-group">
-                    <textarea id="contactMessage" name="message" placeholder="Your message..." required maxlength="500"></textarea>
-                    <div class="char-counter" id="charCounter">0 / 500</div>
-                </div>
-                <button type="submit" class="btn" id="contactSubmitBtn">Send Message ✉️</button>
-            </form>
-        </div>
-    </div>
-</section>
-
-<!-- ======================== FOOTER ======================== -->
-<footer>
-    <div class="footer-container">
-        <div class="footer-brand">
-            <div class="footer-logo">
-                <img src="mi-studio-logo.png" alt="Mi Studio Logo">
-                <h2>Mi Studio</h2>
-            </div>
-            <p class="footer-tagline">Building the future, one line of code at a time.</p>
-            <div class="footer-socials">
-                <a href="#" class="social-icon" aria-label="GitHub">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-                </a>
-                <a href="#" class="social-icon" aria-label="LinkedIn">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                </a>
-                <a href="#" class="social-icon" aria-label="Twitter">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                </a>
-            </div>
-        </div>
-        <div class="footer-links">
-            <h4>Navigation</h4>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#tools">Tools</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-        <div class="footer-links">
-            <h4>Services</h4>
-            <ul>
-                <li><a href="#services">Frontend Development</a></li>
-                <li><a href="#services">Backend Development</a></li>
-                <li><a href="#services">UI/UX Design</a></li>
-                <li><a href="#services">Mobile-First Design</a></li>
-                <li><a href="#ai-hub">AI Tools</a></li>
-            </ul>
-        </div>
-        <div class="footer-links">
-            <h4>Contact</h4>
-            <ul>
-                <li><a href="mailto:hello@mistudio.dev">hello@mistudio.dev</a></li>
-                <li><a href="tel:+15551234567">+1 (555) 123-4567</a></li>
-                <li><a href="#contact">Send a Message</a></li>
-                <li><a href="login_and_singin.html">Login / Sign Up</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <p>© 2026 Mi Studio — Code • Create • Innovate</p>
-        <p class="footer-made">Made with ❤️ by Mi Studio</p>
-    </div>
+<footer class="social-footer">
+    <p>© 2026 Mi Studio · Developer community for coders, builders, and teams.</p>
 </footer>
 
 <script src="script.js"></script>
