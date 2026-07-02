@@ -563,3 +563,133 @@ document.addEventListener('mousemove', (e) => {
         orb.style.transform = `translate(${x * depth}px, ${y * depth}px)`;
     });
 }, { passive: true });
+
+/* =============================================
+   DEVELOPER SOCIAL HOMEPAGE INTERACTIONS
+   ============================================= */
+function initDeveloperSocial() {
+    const searchInput = document.getElementById('globalSearch');
+    const feedPosts = Array.from(document.querySelectorAll('.feed-post'));
+    const storyCards = Array.from(document.querySelectorAll('.story-card'));
+
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.trim().toLowerCase();
+
+            feedPosts.forEach(post => {
+                const content = `${post.dataset.searchable || ''} ${post.textContent}`.toLowerCase();
+                post.classList.toggle('search-hidden', query !== '' && !content.includes(query));
+            });
+
+            storyCards.forEach(story => {
+                const content = story.textContent.toLowerCase();
+                story.classList.toggle('search-hidden', query !== '' && !content.includes(query));
+            });
+        });
+    }
+
+    storyCards.forEach(story => {
+        const activateStory = () => {
+            storyCards.forEach(card => card.classList.remove('active'));
+            story.classList.add('active');
+            showToast(`${story.dataset.story || story.textContent.trim()} feed opened`, 'info');
+        };
+
+        story.addEventListener('click', activateStory);
+        story.addEventListener('keydown', event => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                activateStory();
+            }
+        });
+    });
+
+    const quickPrompts = {
+        bug: {
+            subject: 'Need help debugging',
+            message: 'I am stuck on a bug in my project. Here is what I expected, what happened, and the code I already tried:'
+        },
+        snippet: {
+            subject: 'Useful code snippet',
+            message: 'Sharing a small snippet that helped me today. It solves:'
+        },
+        launch: {
+            subject: 'Project launch',
+            message: 'I just launched a new project. Stack, features, and feedback I am looking for:'
+        },
+        collab: {
+            subject: 'Looking for collaborators',
+            message: 'I am looking for developers to collaborate on this idea. Skills needed, timeline, and next step:'
+        }
+    };
+
+    document.querySelectorAll('[data-fill-post]').forEach(button => {
+        button.addEventListener('click', () => {
+            const prompt = quickPrompts[button.dataset.fillPost];
+            const subject = document.getElementById('contactSubject');
+            const message = document.getElementById('contactMessage');
+            if (!prompt || !subject || !message) return;
+
+            subject.value = prompt.subject;
+            message.value = prompt.message;
+            updateCharCounter();
+            message.focus();
+        });
+    });
+
+    document.querySelectorAll('[data-social-action]').forEach(button => {
+        button.addEventListener('click', async () => {
+            const action = button.dataset.socialAction;
+
+            if (action === 'like') {
+                const count = button.querySelector('span');
+                const isLiked = button.classList.toggle('is-liked');
+                if (count) {
+                    const current = parseInt(count.textContent, 10) || 0;
+                    count.textContent = String(current + (isLiked ? 1 : -1));
+                }
+                if (button.firstChild) {
+                    button.firstChild.nodeValue = isLiked ? '♥ ' : '♡ ';
+                }
+                return;
+            }
+
+            if (action === 'share') {
+                try {
+                    await navigator.clipboard.writeText(window.location.href);
+                    showToast('Link copied to clipboard.', 'success');
+                } catch (error) {
+                    showToast('Share this page URL with your developer friends.', 'info');
+                }
+                return;
+            }
+
+            if (action === 'comment') {
+                showToast('Comment threads are coming next.', 'info');
+                return;
+            }
+
+            if (action === 'join') {
+                button.textContent = 'Joined';
+                button.classList.add('is-liked');
+                showToast('You joined the developer thread.', 'success');
+            }
+        });
+    });
+
+    document.querySelectorAll('[data-follow]').forEach(button => {
+        button.addEventListener('click', () => {
+            const isFollowing = button.classList.toggle('is-following');
+            button.textContent = isFollowing ? 'Following' : 'Follow';
+            showToast(isFollowing ? 'Coder followed.' : 'Coder unfollowed.', isFollowing ? 'success' : 'info');
+        });
+    });
+
+    document.querySelectorAll('.post-menu').forEach(button => {
+        button.addEventListener('click', () => {
+            showToast('Post saved to your dev board.', 'success');
+        });
+    });
+}
+
+initDeveloperSocial();
