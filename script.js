@@ -304,22 +304,33 @@ function showToast(message, status = 'info') {
 }
 
 function handleContactSubmit(event) {
-    event.preventDefault();
     const name = document.getElementById('contactName')?.value.trim();
     const email = document.getElementById('contactEmail')?.value.trim();
     const message = document.getElementById('contactMessage')?.value.trim();
 
     if (!name || !email || !message) {
+        event.preventDefault();
         showToast('Please fill in all required fields.', 'error');
         return false;
     }
 
-    showToast('Thank you! Your message has been received.', 'success');
-    const form = document.getElementById('contactForm');
-    if (form) form.reset();
-    updateCharCounter();
-    return false;
+    return true;
 }
+
+window.addEventListener('load', () => {
+    const params = new URLSearchParams(window.location.search);
+    const message = params.get('message');
+    const saved = params.get('saved');
+    const error = params.get('error');
+
+    if (message && saved === '1') {
+        showToast(decodeURIComponent(message), 'success');
+        window.history.replaceState({}, document.title, window.location.pathname);
+    } else if (message && error) {
+        showToast(decodeURIComponent(message), 'error');
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+});
 
 const testimonialSlides = document.querySelectorAll('.testimonial-slide');
 const carouselDots = document.querySelectorAll('.carousel-dot');
