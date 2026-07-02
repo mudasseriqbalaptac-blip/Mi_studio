@@ -591,6 +591,13 @@ nav ul li a.nav-login-btn:hover {
     font-size: 1.08rem;
 }
 
+.project-uploader {
+    color: #d0c2ff;
+    font-size: 0.84rem;
+    font-weight: 600;
+    margin-top: -2px;
+}
+
 .project-card p {
     color: var(--text-muted);
     font-size: 0.95rem;
