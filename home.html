@@ -125,7 +125,7 @@
             </div>
         </form>
 
-        <article class="feed-post">
+        <article class="feed-post" data-searchable="ayesha rahman frontend dashboard css lighthouse reusable cards javascript ui">
             <header class="post-header">
                 <div class="post-avatar gradient-a">AR</div>
                 <div>
@@ -144,13 +144,13 @@
 }</code></pre>
             </div>
             <footer class="post-actions">
-                <button>♡ 248</button>
-                <button>💬 34</button>
-                <button>↗ Share</button>
+                <button data-social-action="like">♡ <span>248</span></button>
+                <button data-social-action="comment">💬 <span>34</span></button>
+                <button data-social-action="share">↗ Share</button>
             </footer>
         </article>
 
-        <article class="feed-post project-feature" id="projects">
+        <article class="feed-post project-feature" id="projects" data-searchable="mi studio project showcase community uploads portfolio launch screenshots webdev">
             <header class="post-header">
                 <div class="post-avatar gradient-b">MS</div>
                 <div>
@@ -174,7 +174,7 @@
             </div>
         </article>
 
-        <article class="feed-post" id="communities">
+        <article class="feed-post" id="communities" data-searchable="daniyal khan backend php mysql api monitoring open source collaboration">
             <header class="post-header">
                 <div class="post-avatar gradient-c">DK</div>
                 <div>
@@ -191,9 +191,31 @@
                 <span>#collaboration</span>
             </div>
             <footer class="post-actions">
-                <button>♡ 119</button>
-                <button>💬 21</button>
-                <button>Join thread</button>
+                <button data-social-action="like">♡ <span>119</span></button>
+                <button data-social-action="comment">💬 <span>21</span></button>
+                <button data-social-action="join">Join thread</button>
+            </footer>
+        </article>
+
+        <article class="feed-post spotlight-post" data-searchable="weekly challenge css animation portfolio open source">
+            <header class="post-header">
+                <div class="post-avatar gradient-d">CH</div>
+                <div>
+                    <h3>Weekly Challenge</h3>
+                    <p>Community event · Ends Sunday</p>
+                </div>
+                <span class="live-pill">Live</span>
+            </header>
+            <p class="post-copy">Build a developer portfolio homepage in under 90 minutes. Post your result, explain one decision, and tag your stack.</p>
+            <div class="challenge-grid">
+                <span>Theme: Personal OS</span>
+                <span>Prize: Featured profile</span>
+                <span>Stack: Any</span>
+            </div>
+            <footer class="post-actions">
+                <button data-social-action="like">♡ <span>302</span></button>
+                <button data-social-action="comment">💬 <span>88</span></button>
+                <button data-social-action="join">Join challenge</button>
             </footer>
         </article>
 
@@ -236,17 +258,26 @@
             <div class="coder-row">
                 <span class="mini-avatar gradient-a">FR</span>
                 <div><strong>Fatima R.</strong><small>React, CSS</small></div>
-                <button>Follow</button>
+                <button data-follow>Follow</button>
             </div>
             <div class="coder-row">
                 <span class="mini-avatar gradient-b">HU</span>
                 <div><strong>Hamza U.</strong><small>PHP, APIs</small></div>
-                <button>Follow</button>
+                <button data-follow>Follow</button>
             </div>
             <div class="coder-row">
                 <span class="mini-avatar gradient-c">SA</span>
                 <div><strong>Sara A.</strong><small>UI, Product</small></div>
-                <button>Follow</button>
+                <button data-follow>Follow</button>
+            </div>
+        </section>
+
+        <section class="side-card">
+            <h3>Live Code Rooms</h3>
+            <div class="room-list">
+                <a href="#communities"><span></span> Debug PHP forms <strong>18</strong></a>
+                <a href="#feed"><span></span> CSS layout clinic <strong>31</strong></a>
+                <a href="#projects"><span></span> Ship-it reviews <strong>12</strong></a>
             </div>
         </section>
 
@@ -259,8 +290,15 @@
 </main>
 
 <footer class="social-footer">
-    <p>2026 Mi Studio · Developer community for coders, builders, and teams.</p>
+    <p>&copy; 2026 Mi Studio &middot; Developer community for coders, builders, and teams.</p>
 </footer>
+
+<nav class="mobile-social-nav" aria-label="Mobile social navigation">
+    <a href="#feed">Feed</a>
+    <a href="#projects">Projects</a>
+    <a href="#communities">Rooms</a>
+    <a href="project_upload.php">Post</a>
+</nav>
 
 <script src="script.js"></script>
 </body>
