@@ -57,6 +57,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $authMessage = 'Something went wrong';
     $conn = null;
 
+    if (($payload['form_type'] ?? '') === 'contact') {
+        $authStatus = 'success';
+        $authMessage = 'Message received successfully.';
+    }
+
     mysqli_report(MYSQLI_REPORT_OFF);
 
     foreach ($dbHosts as $dbHost) {
