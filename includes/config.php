@@ -127,6 +127,157 @@ function authenticate_user(string $email, string $password): ?array {
     return $user;
 }
 
+function normalize_user(array $user, string $email): array {
+    $user['name'] = $user['name'] ?? ($user['display_name'] ?? 'User');
+    $user['display_name'] = $user['display_name'] ?? $user['name'];
+    $user['username'] = $user['username'] ?? strtolower(str_replace(' ', '', $user['display_name']));
+    $user['email'] = $user['email'] ?? $email;
+    $user['role'] = $user['role'] ?? 'user';
+    $user['avatar'] = $user['avatar'] ?? 'mi-studio-logo.png';
+    $user['cover'] = $user['cover'] ?? 'uploads/projects/project_6a460576ce65a.png';
+    $user['bio'] = $user['bio'] ?? 'Crafting thoughtful digital experiences.';
+    $user['verified'] = (bool)($user['verified'] ?? false);
+    $user['email_verified'] = (bool)($user['email_verified'] ?? false);
+    return $user;
+}
+
+function get_current_user(): ?array {
+    return $_SESSION['user'] ?? null;
+}
+
+function get_authenticated_user(): ?array {
+    return get_current_user();
+}
+
+function require_login(): void {
+    if (!is_logged_in()) {
+        flash('error', 'Please sign in to continue.');
+        redirect(SITE_URL . '/login.php');
+    }
+}
+
+function require_admin(): void {
+    if (!is_admin()) {
+        flash('error', 'Administrator access required.');
+        redirect(SITE_URL . '/login.php');
+    }
+}
+
+function create_user(array $data): ?array {
+    $email = strtolower(sanitize_text($data['email'] ?? ''));
+    $name = sanitize_text($data['name'] ?? '');
+    $username = strtolower(preg_replace('/[^a-z0-9_]/i', '', sanitize_text($data['username'] ?? $name)));
+    $password = (string)($data['password'] ?? '');
+
+    if ($email === '' || $name === '' || $password === '') {
+        return null;
+    }
+
+    $users = load_users();
+    if (isset($users[$email])) {
+        return null;
+    }
+
+    $user = [
+        'id' => time(),
+        'name' => $name,
+        'display_name' => $name,
+        'username' => $username !== '' ? $username : 'user' . time(),
+        'email' => $email,
+        'password' => password_hash($password, PASSWORD_DEFAULT),
+        'role' => 'user',
+        'provider' => 'local',
+        'avatar' => 'mi-studio-logo.png',
+        'cover' => 'uploads/projects/project_6a460576ce65a.png',
+        'bio' => 'Building thoughtful digital spaces.',
+        'website' => '',
+        'location' => '',
+        'verified' => false,
+        'email_verified' => false,
+        'followers' => 0,
+        'following' => 0,
+        'created_at' => date('Y-m-d H:i:s'),
+        'verification_token' => bin2hex(random_bytes(16)),
+    ];
+
+    $users[$email] = $user;
+    save_users($users);
+    return $users[$email];
+}
+
+function load_posts(): array {
+    $posts = ensure_json_file(DATA_DIR . '/posts.json', [
+        [
+            'id' => 1,
+            'author' => 'admin@mistudio.dev',
+            'name' => 'Mi Studio Admin',
+            'avatar' => 'mi-studio-logo.png',
+            'body' => 'Welcome to the new social experience—beautiful, secure and designed for real conversations.',
+            'image' => 'uploads/projects/project_6a460576ce65a.png',
+            'likes' => 14,
+            'comments' => 4,
+            'created_at' => date('Y-m-d H:i:s')
+        ]
+    ]);
+    return $posts;
+}
+
+function save_posts(array $posts): void {
+    write_json_file(DATA_DIR . '/posts.json', $posts);
+}
+
+function load_stories(): array {
+    return ensure_json_file(DATA_DIR . '/stories.json', []);
+}
+
+function save_stories(array $stories): void {
+    write_json_file(DATA_DIR . '/stories.json', $stories);
+}
+
+function load_notifications(): array {
+    return ensure_json_file(DATA_DIR . '/notifications.json', []);
+}
+
+function save_notifications(array $notifications): void {
+    write_json_file(DATA_DIR . '/notifications.json', $notifications);
+}
+
+function load_messages(): array {
+    return ensure_json_file(DATA_DIR . '/messages.json', []);
+}
+
+function save_messages(array $messages): void {
+    write_json_file(DATA_DIR . '/messages.json', $messages);
+}
+
+function record_failed_login(string $email): void {
+    $attemptsFile = DATA_DIR . '/login_attempts.json';
+    $attempts = ensure_json_file($attemptsFile, []);
+    $now = time();
+    $attempts[$email] = array_values(array_filter($attempts[$email] ?? [], function ($ts) use ($now) {
+        return $ts > $now - 900;
+    }));
+    $attempts[$email][] = $now;
+    write_json_file($attemptsFile, $attempts);
+}
+
+function is_login_locked(string $email): bool {
+    $attemptsFile = DATA_DIR . '/login_attempts.json';
+    $attempts = ensure_json_file($attemptsFile, []);
+    $now = time();
+    $recent = array_values(array_filter($attempts[$email] ?? [], function ($ts) use ($now) {
+        return $ts > $now - 900;
+    }));
+    return count($recent) >= 5;
+}
+
+function clear_failed_login(string $email): void {
+    $attemptsFile = DATA_DIR . '/login_attempts.json';
+    $attempts = ensure_json_file($attemptsFile, []);
+    unset($attempts[$email]);
+    write_json_file($attemptsFile, $attempts);
+}
+
 function get_db_connection() {
     $host = getenv('DB_HOST') ?: '127.0.0.1';
     $name = getenv('DB_NAME') ?: 'mi_studio';
