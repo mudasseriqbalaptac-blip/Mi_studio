@@ -1,0 +1,28 @@
+<?php
+require_once __DIR__ . '/includes/config.php';
+$pageTitle = 'Projects';
+$projects = array_reverse(ensure_json_file(DATA_DIR . '/projects.json', []));
+include __DIR__ . '/includes/header.php';
+?>
+<section class="page-hero container">
+  <div class="section-label">Projects</div>
+  <h1>Selected work shaped for clarity, performance, and impact.</h1>
+  <p>Each project combines strong visuals with thoughtful UX decisions and reliable implementation.</p>
+</section>
+<section class="container section">
+  <div class="card-grid">
+    <?php foreach ($projects as $project): ?>
+      <article class="project-card reveal">
+        <img src="<?php echo encode_output($project['image'] ?? ''); ?>" alt="<?php echo encode_output($project['title'] ?? 'Project preview'); ?>" style="border-radius:18px; height:220px; object-fit:cover;">
+        <div class="chip-row">
+          <span class="chip"><?php echo encode_output($project['category'] ?? 'Featured'); ?></span>
+          <span class="chip"><?php echo encode_output($project['created_at'] ?? ''); ?></span>
+        </div>
+        <h3><?php echo encode_output($project['title'] ?? 'Untitled project'); ?></h3>
+        <p class="muted"><?php echo encode_output($project['description'] ?? ''); ?></p>
+        <?php if (!empty($project['link'])): ?><a class="btn btn-secondary" href="<?php echo encode_output($project['link']); ?>" target="_blank" rel="noopener">Live demo</a><?php endif; ?>
+      </article>
+    <?php endforeach; ?>
+  </div>
+</section>
+<?php include __DIR__ . '/includes/footer.php'; ?>
