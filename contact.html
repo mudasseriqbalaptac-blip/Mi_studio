@@ -1,0 +1,55 @@
+<?php
+require_once __DIR__ . '/includes/config.php';
+$pageTitle = 'Contact';
+$settings = load_settings();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!isset($_POST['csrf_token']) || !verify_csrf($_POST['csrf_token'])) {
+        flash('error', 'Invalid security token.');
+        redirect(SITE_URL . '/contact.html');
+    }
+    $payload = [
+        'name' => sanitize_text($_POST['name'] ?? ''),
+        'email' => sanitize_text($_POST['email'] ?? ''),
+        'message' => sanitize_text($_POST['message'] ?? '')
+    ];
+    $submissions = ensure_json_file(DATA_DIR . '/submissions.json', []);
+    $submissions[] = [
+        'created_at' => date('Y-m-d H:i:s'),
+        'type' => 'contact',
+        'payload' => $payload
+    ];
+    write_json_file(DATA_DIR . '/submissions.json', $submissions);
+    flash('success', 'Your message has been captured successfully.');
+    redirect(SITE_URL . '/contact.html');
+}
+include __DIR__ . '/includes/header.php';
+?>
+<section class="page-hero container">
+  <div class="section-label">Contact</div>
+  <h1>Let’s build something memorable.</h1>
+  <p>Reach out for new projects, product thinking, or collaboration opportunities.</p>
+</section>
+<section class="container section">
+  <div class="card-grid">
+    <article class="contact-card reveal">
+      <h3>Direct channels</h3>
+      <p class="muted">Email: <?php echo encode_output($settings['contact_email'] ?? 'hello@mistudio.dev'); ?></p>
+      <p class="muted">WhatsApp: <?php echo encode_output($settings['whatsapp'] ?? '+1234567890'); ?></p>
+      <p class="muted">LinkedIn: <a href="<?php echo encode_output($settings['linkedin'] ?? '#'); ?>">Open profile</a></p>
+      <p class="muted">GitHub: <a href="<?php echo encode_output($settings['github'] ?? '#'); ?>">View work</a></p>
+    </article>
+    <article class="form-card reveal">
+      <form method="post">
+        <input type="hidden" name="csrf_token" value="<?php echo encode_output(csrf_token()); ?>">
+        <div class="form-grid">
+          <div><label for="name">Name</label><input id="name" name="name" required></div>
+          <div><label for="email">Email</label><input id="email" name="email" type="email" required></div>
+        </div>
+        <label for="message" style="margin-top:1rem;">Project brief</label>
+        <textarea id="message" name="message" required></textarea>
+        <button class="btn btn-primary" type="submit" style="margin-top:1rem;">Send</button>
+      </form>
+    </article>
+  </div>
+</section>
+<?php include __DIR__ . '/includes/footer.php'; ?>
