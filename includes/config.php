@@ -163,7 +163,7 @@ function get_db_connection() {
     return $connection;
 }
 
-function get_current_user(): ?array {
+function get_authenticated_user(): ?array {
     return $_SESSION['user'] ?? null;
 }
 
