@@ -2,7 +2,7 @@
 require_once dirname(__DIR__) . '/includes/config.php';
 require_login();
 $pageTitle = 'Settings';
-$user = get_current_user();
+$user = get_session_user();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!isset($_POST['csrf_token']) || !verify_csrf($_POST['csrf_token'])) {
         flash('error', 'Invalid security token.');
