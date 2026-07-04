@@ -1,0 +1,16 @@
+[
+  {
+    "id": "blog-001",
+    "title": "Designing premium interfaces with motion and restraint",
+    "category": "UI/UX",
+    "excerpt": "A practical guide for building polished product experiences that feel calm, confident and premium.",
+    "date": "2026-07-01"
+  },
+  {
+    "id": "blog-002",
+    "title": "Modern PHP patterns for fast, secure portfolios",
+    "category": "PHP",
+    "excerpt": "How to keep portfolio backends clean while protecting sessions, uploads and user data.",
+    "date": "2026-07-03"
+  }
+]
