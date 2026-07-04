@@ -68,6 +68,7 @@ include __DIR__ . '/includes/header.php';
       <a class="social-btn" href="#">Continue with Google</a>
       <a class="social-btn" href="#">Continue with GitHub</a>
     </div>
+    <p class="small" style="margin-top:1rem; text-align:center;"><a href="<?php echo SITE_URL; ?>/register.php">Create an account</a></p>
   </div>
 </section>
 <?php include __DIR__ . '/includes/footer.php'; ?>
