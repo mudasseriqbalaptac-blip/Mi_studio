@@ -314,10 +314,6 @@ function get_db_connection() {
     return $connection;
 }
 
-function get_authenticated_user(): ?array {
-    return get_session_user();
-}
-
 function is_admin(): bool {
     return ($_SESSION['user']['role'] ?? '') === 'admin';
 }
