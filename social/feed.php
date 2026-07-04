@@ -2,7 +2,7 @@
 require_once dirname(__DIR__) . '/includes/config.php';
 require_login();
 $pageTitle = 'Feed';
-$user = get_current_user();
+$user = get_session_user();
 $posts = load_posts();
 $stories = load_stories();
 $notifications = load_notifications();
