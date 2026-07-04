@@ -2,7 +2,7 @@
 require_once dirname(__DIR__) . '/includes/config.php';
 require_login();
 $pageTitle = 'Profile';
-$user = get_current_user();
+$user = get_session_user();
 $profile = normalize_user($user, $user['email'] ?? '');
 include dirname(__DIR__) . '/includes/header.php';
 ?>
