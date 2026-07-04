@@ -1,0 +1,24 @@
+<?php
+require_once __DIR__ . '/includes/config.php';
+$pageTitle = 'Blog';
+$posts = ensure_json_file(DATA_DIR . '/blog.json', []);
+include __DIR__ . '/includes/header.php';
+?>
+<section class="page-hero container">
+  <div class="section-label">Blog</div>
+  <h1>Insights on product design, web development, and tooling.</h1>
+  <p>Writing about what helps teams ship faster while keeping experiences elegant and accessible.</p>
+</section>
+<section class="container section">
+  <div class="card-grid">
+    <?php foreach ($posts as $post): ?>
+      <article class="blog-card reveal">
+        <div class="chip"><?php echo encode_output($post['category'] ?? 'Insight'); ?></div>
+        <h3><?php echo encode_output($post['title'] ?? 'Untitled post'); ?></h3>
+        <p class="muted"><?php echo encode_output($post['excerpt'] ?? ''); ?></p>
+        <div class="small muted"><?php echo encode_output($post['date'] ?? ''); ?></div>
+      </article>
+    <?php endforeach; ?>
+  </div>
+</section>
+<?php include __DIR__ . '/includes/footer.php'; ?>
