@@ -17,7 +17,7 @@ if ($body === '') {
 }
 
 $posts = load_posts();
-$user = get_current_user();
+$user = get_session_user();
 $posts[] = [
     'id' => time(),
     'author' => $user['email'],
