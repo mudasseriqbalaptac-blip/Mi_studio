@@ -17,16 +17,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $remember = !empty($_POST['remember']);
 
     $user = authenticate_user($email, $password);
-    if ($user && ($user['role'] ?? 'user') === 'admin') {
-        $_SESSION['user'] = $user;
-        if ($remember) {
-            session_set_cookie_params(60 * 60 * 24 * 30);
+    if ($user) {
+        if (($user['role'] ?? 'user') === 'admin') {
+            $_SESSION['user'] = normalize_user($user, $user['email']);
+            if ($remember) {
+                session_set_cookie_params(60 * 60 * 24 * 30);
+            }
+            clear_failed_login($email);
+            flash('success', 'Welcome back, administrator.');
+            redirect(SITE_URL . '/admin/dashboard.php');
         }
-        flash('success', 'Welcome back, administrator.');
-        redirect(SITE_URL . '/admin/dashboard.php');
+
+        $_SESSION['user'] = normalize_user($user, $user['email']);
+        clear_failed_login($email);
+        flash('success', 'Welcome back.');
+        redirect(SITE_URL . '/social/feed.php');
     }
 
-    flash('error', 'Invalid admin credentials.');
+    record_failed_login($email);
+    flash('error', 'Invalid credentials.');
     redirect(SITE_URL . '/login.php');
 }
 
