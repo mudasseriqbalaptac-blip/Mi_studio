@@ -32,7 +32,10 @@ $flash = get_flash();
       <a href="<?php echo SITE_URL; ?>/projects.php">Projects</a>
       <a href="<?php echo SITE_URL; ?>/blog.php">Blog</a>
       <a href="<?php echo SITE_URL; ?>/contact.php">Contact</a>
-      <a class="nav-pill" href="<?php echo SITE_URL; ?>/login.php">Admin Login</a>
+      <a href="<?php echo SITE_URL; ?>/social/feed.php">Feed</a>
+      <a href="<?php echo SITE_URL; ?>/social/profile.php">Profile</a>
+      <a href="<?php echo SITE_URL; ?>/social/messages.php">Messages</a>
+      <a class="nav-pill" href="<?php echo SITE_URL; ?>/login.php">Login</a>
     </nav>
   </div>
 </header>
