@@ -141,12 +141,12 @@ function normalize_user(array $user, string $email): array {
     return $user;
 }
 
-function get_current_user(): ?array {
+function get_session_user(): ?array {
     return $_SESSION['user'] ?? null;
 }
 
 function get_authenticated_user(): ?array {
-    return get_current_user();
+    return get_session_user();
 }
 
 function require_login(): void {
@@ -315,7 +315,7 @@ function get_db_connection() {
 }
 
 function get_authenticated_user(): ?array {
-    return $_SESSION['user'] ?? null;
+    return get_session_user();
 }
 
 function is_admin(): bool {
