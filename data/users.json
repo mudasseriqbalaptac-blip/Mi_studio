@@ -1,0 +1,33 @@
+{
+    "admin@mistudio.dev": {
+        "id": 1,
+        "name": "Mi Studio Admin",
+        "email": "admin@mistudio.dev",
+        "password": "$2y$10$KKMBaDr4cLxB/jiKr8O3te9KpEuGfpDc.uGpYZz.2ayqT89gA1Z4e",
+        "role": "admin",
+        "provider": "local",
+        "email_verified": true,
+        "created_at": "2026-07-04 07:43:40"
+    },
+    "mudasser94gb@gmail.com": {
+        "id": 1783143882,
+        "name": "MUDASSER",
+        "display_name": "MUDASSER",
+        "username": "iqbalaptac",
+        "email": "mudasser94gb@gmail.com",
+        "password": "$2y$10$NmJe3QPdDo3fRlZJvq3krODwmPIzH2Q8m/TNr4BCHVyLyKeuez4K2",
+        "role": "user",
+        "provider": "local",
+        "avatar": "mi-studio-logo.png",
+        "cover": "uploads/projects/project_6a460576ce65a.png",
+        "bio": "Building thoughtful digital spaces.",
+        "website": "",
+        "location": "",
+        "verified": false,
+        "email_verified": false,
+        "followers": 0,
+        "following": 0,
+        "created_at": "2026-07-04 07:44:42",
+        "verification_token": "cf1773fa8412d9318b44e9d340862830"
+    }
+}
