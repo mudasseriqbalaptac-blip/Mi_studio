@@ -1,0 +1,24 @@
+[
+    {
+        "id": 1,
+        "author": "admin@mistudio.dev",
+        "name": "Mi Studio Admin",
+        "avatar": "mi-studio-logo.png",
+        "body": "Welcome to the new social experience\u2014beautiful, secure and designed for real conversations.",
+        "image": "uploads/projects/project_6a460576ce65a.png",
+        "likes": 14,
+        "comments": 4,
+        "created_at": "2026-07-04 07:45:08"
+    },
+    {
+        "id": 1783143926,
+        "author": "mudasser94gb@gmail.com",
+        "name": "MUDASSER",
+        "avatar": "mi-studio-logo.png",
+        "body": "Hi",
+        "image": "",
+        "likes": 0,
+        "comments": 0,
+        "created_at": "2026-07-04 07:45:26"
+    }
+]
