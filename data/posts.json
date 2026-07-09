@@ -20,5 +20,16 @@
         "likes": 0,
         "comments": 0,
         "created_at": "2026-07-04 07:45:26"
+    },
+    {
+        "id": 1783588333,
+        "author": "mudasser94gb@gmail.com",
+        "name": "MUDASSER",
+        "avatar": "mi-studio-logo.png",
+        "body": "tfghfhrtj",
+        "image": "",
+        "likes": 0,
+        "comments": 0,
+        "created_at": "2026-07-09 11:12:13"
     }
 ]
