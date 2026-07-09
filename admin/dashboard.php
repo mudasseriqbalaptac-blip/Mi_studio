@@ -34,8 +34,8 @@ include dirname(__DIR__) . '/includes/header.php';
     <div class="section-label">Manage</div>
     <div class="badge-list" style="margin-top:1rem;">
       <span><a href="<?php echo SITE_URL; ?>/project_upload.php">Add project</a></span>
-      <span><a href="<?php echo SITE_URL; ?>/blog.html">Review blog</a></span>
-      <span><a href="<?php echo SITE_URL; ?>/contact.html">View contact</a></span>
+      <span><a href="<?php echo SITE_URL; ?>/blog.php">Review blog</a></span>
+      <span><a href="<?php echo SITE_URL; ?>/contact.php">View contact</a></span>
       <span><a href="<?php echo SITE_URL; ?>/auth/logout.php">Logout</a></span>
     </div>
   </article>
