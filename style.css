@@ -125,6 +125,7 @@ h1, h2, h3, h4 {
 .gradient-text {
     background: linear-gradient(90deg, #7B2CFF, #FF00AA);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
 }
@@ -175,6 +176,7 @@ nav .logo h2 {
     font-weight: 800;
     background: linear-gradient(90deg, #fff, #ddd);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -326,6 +328,7 @@ nav ul li a.nav-login-btn:hover {
     margin-bottom: 12px;
     background: linear-gradient(90deg, #ffffff, #d3c4ff, #ff9ed8);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -959,6 +962,7 @@ nav ul li a.nav-active::after {
     margin-bottom: 16px;
     background: linear-gradient(135deg, #FFFFFF 55%, #C8C8E7 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -1426,6 +1430,7 @@ nav ul li a.nav-active::after {
     margin-bottom: 50px;
     background: linear-gradient(90deg, #FFFFFF, var(--text-muted));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     position: relative;
 }
@@ -1574,6 +1579,7 @@ nav ul li a.nav-active::after {
 .card:hover h3 {
     background: linear-gradient(90deg, #fff, #e0aaff);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -1587,6 +1593,7 @@ nav ul li a.nav-active::after {
 .project-card h3 {
     background: linear-gradient(90deg, #FFF, #DDD);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -2399,6 +2406,7 @@ footer {
     font-size: 24px;
     background: linear-gradient(90deg, #FFFFFF, var(--text-muted));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -3283,6 +3291,7 @@ footer p:hover,
     margin: 4px 0 12px;
     background: linear-gradient(90deg, #fff, #a7ffd0, #ff9ed8);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
